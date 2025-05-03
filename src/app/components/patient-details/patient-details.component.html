@@ -1,0 +1,387 @@
+<section class="bg-[#F6F6F6;] h-[100vh]">
+  <div class="flex justify-between items-center bg-white w-[99.5%] mx-auto">
+    <div class="p-2 m-3 gap-2 flex items-center max-sm:w-1/2">
+      <div class="w-9">
+        <span
+          class="icon-[healthicons--ui-user-profile]"
+          style="width: 35px; height: 35px"
+        ></span>
+      </div>
+      <p>{{ name }}</p>
+    </div>
+  </div>
+  <div class="w-[90%] mx-auto bg-white mt-7 rounded-lg shadow-lg p-6">
+    <div class="flex justify-between items-center">
+      <p class="font-semibold text-2xl text-[#00C894]">البيانات الشخصيه</p>
+      <div
+        role="button"
+        (click)="goBack()"
+        class="px-5 py-3 grid content-center bg-[#00C894] text-white rounded-lg hover:scale-[.95]"
+      >
+        <span
+          class="icon-[iconamoon--arrow-left-1]"
+          style="width: 30px; height: 30px"
+        ></span>
+      </div>
+    </div>
+    <form [formGroup]="patientForm">
+      <div class="flex flex-wrap gap-y-3 w-[90%]" formGroupName="contactInfo">
+        <div class="w-[50%]">
+          <label for="firstName" class="block pb-3">الأسم الأول</label>
+          <input
+            [readOnly]="isDisabled"
+            type="text"
+            id="firstName"
+            formControlName="firstName"
+          />
+        </div>
+        <div class="w-[50%]">
+          <label for="lastName" class="block pb-3">الأسم الأخير</label>
+          <input
+            [readOnly]="isDisabled"
+            type="text"
+            id="lastName"
+            formControlName="lastName"
+          />
+        </div>
+        <div class="w-[50%]">
+          <label for="phone" class="block pb-3">رقم التليفون</label>
+          <input
+            [readOnly]="isDisabled"
+            type="tel"
+            id="phone"
+            formControlName="phone"
+          />
+        </div>
+        <div class="w-1/2">
+          <label for="address" class="block pb-3">العنوان</label>
+          <input
+            [readOnly]="isDisabled"
+            type="text"
+            id="address"
+            formControlName="address"
+          />
+        </div>
+      </div>
+      <div class="w-[45%]">
+        <label for="age" class="block pb-3">السن</label>
+        <input
+          [readOnly]="isDisabled"
+          type="numder"
+          class="py-2"
+          id="age"
+          formControlName="age"
+        />
+      </div>
+    </form>
+    @if (status == "edit") {
+    <button
+      (click)="updatePatient()"
+      class="px-5 py-3 grid content-center bg-[#00C894] font-extrabold text-2xl mt-4 m-auto text-white rounded-lg hover:scale-[.95]"
+    >
+      تعديل
+    </button>
+    } @if (status == "create") {
+    <button
+      (click)="savePatient()"
+      class="px-5 py-3 grid content-center bg-[#00C894] font-extrabold text-2xl mt-4 m-auto text-white rounded-lg hover:scale-[.95]"
+    >
+      اضافه
+    </button>
+    }
+  </div>
+  @if (status !== "edit") {
+  <div
+    class="w-[90%] mx-auto bg-white mt-7 rounded-lg shadow-lg p-6 max-h-[40vh] scroll:scale-[.9] overflow-auto"
+  >
+    <div class="flex justify-between items-center">
+      <p class="font-semibold text-2xl text-[#00C894] pb-8">زيارات المريض</p>
+      <button
+        nz-button
+        (click)="showModal()"
+        class="font-semibold text-2xl text-[#00C894] pb-8"
+      >
+        <span>عرض الكل</span>
+      </button>
+    </div>
+    <ol class="relative border-s border-[#000000]">
+      @for (visit of visitData; track $index) {
+      <li class="mb-10 ms-6">
+        <span
+          class="absolute flex items-center justify-center bg-white w-5 h-5 border-4 rounded-full border-[#00C894] -start-[11px]"
+        >
+        </span>
+        <div
+          class="w-full bg-[#FDFDFD] border border-[#0000001A] rounded-lg grid grid-cols-5 max-md:grid-cols-3 max-sm:grid-cols-2 gap-6 content-center py-3"
+        >
+          <div class="mx-auto">
+            <h2 class="font-normal text-base text-[#595959]">التاريخ</h2>
+            <p class="font-medium text-base">
+              {{ visit.creationDateTime | date }}
+            </p>
+          </div>
+          <div class="mx-auto">
+            <h2 class="font-normal text-base text-[#595959]">الدكتور</h2>
+            <p class="font-medium text-base">
+              {{ visit.doctorRedirectedTo?.fullName || "د/غاده عبد الرءوف" }}
+            </p>
+          </div>
+
+          <div class="mx-auto">
+            <h2 class="font-normal text-base text-[#595959]">الممرض</h2>
+            <p class="font-medium text-base">
+              {{ visit.nurse || "-----" }}
+            </p>
+          </div>
+          <div
+            role="button"
+            (click)="patientInfo(visit.id)"
+            class="px-[16px] h-[50px] rounded-lg bg-[#00C894] hover:scale-[.95] text-white flex gap-2 justify-around font-semibold text-xl items-center mx-auto"
+          >
+            <span
+              class="icon-[pepicons-pop--file]"
+              style="width: 24px; height: 24px"
+            >
+            </span>
+            <span>ملف الزياره</span>
+          </div>
+          @if (isDoctor) {
+          <div
+            role="button"
+            (click)="printFunc($index)"
+            class="px-[32px] h-[50px] rounded-lg bg-[#00C894] hover:scale-[.95] text-white flex gap-2 justify-around font-semibold text-xl items-center mx-auto"
+          >
+            <span
+              class="icon-[material-symbols-light--prescriptions-outline]"
+              style="width: 24px; height: 24px"
+            ></span>
+            <span>الروشته</span>
+          </div>
+          }
+        </div>
+        <div
+          [id]="$index"
+          class="!hidden"
+          style="
+            width: 420px;
+            height: 595px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          "
+        >
+          <img
+            src="./assets/بود.jpg"
+            alt="header prescriptions"
+            style="width: 100%"
+          />
+          <div style="width: 100%; height: 60%">
+            <div style="display: flex; justify-content: space-evenly">
+              <ul style="list-style: none; direction: rtl">
+                <li
+                  style="
+                    padding: 0;
+                    margin: 0;
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+                    font-size: 16px;
+                    font-weight: 600;
+                  "
+                >
+                  <span style="color: #224798; font-weight: 800">التاريخ:</span>
+                  <p style="border-bottom: 1px dashed black">
+                    {{ visit.creationDateTime | date }}
+                  </p>
+                </li>
+                <li
+                  style="
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+                    font-size: 16px;
+                    font-weight: 600;
+                  "
+                >
+                  <label style="color: #224798; font-weight: 800"
+                    >العيادة:</label
+                  >
+                  <p style="border-bottom: 1px dashed black">دار السكر</p>
+                </li>
+                <li
+                  style="
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+                    font-size: 16px;
+                    font-weight: 600;
+                  "
+                >
+                  <label style="color: #224798; font-weight: 800"
+                    >الطبيب:</label
+                  >
+                  <p style="border-bottom: 1px dashed black">{{ name }}</p>
+                </li>
+              </ul>
+              <ul style="list-style: none; direction: rtl; padding: 0">
+                <li
+                  style="
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+                    font-size: 16px;
+                    font-weight: 600;
+                  "
+                >
+                  <label style="color: #224798; font-weight: 800">الاسم:</label>
+                  <p style="border-bottom: 1px dashed black">
+                    {{ visit?.patient?.fullName }}
+                  </p>
+                </li>
+                <li
+                  style="
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+                    font-size: 16px;
+                    font-weight: 600;
+                  "
+                >
+                  <label style="color: #224798; font-weight: 800">السن:</label>
+                  <p style="border-bottom: 1px dashed black">
+                    {{ visit?.patient?.age }}
+                  </p>
+                </li>
+                <li
+                  style="
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+                    font-size: 16px;
+                    font-weight: 600;
+                  "
+                >
+                  <label style="color: #224798; font-weight: 800">الوزن:</label>
+                  <p style="border-bottom: 1px dashed black">
+                    {{ visit?.medicalRecord?.weight }}
+                  </p>
+                </li>
+              </ul>
+              <!-- } -->
+            </div>
+
+            <table style="width: 90%; margin: auto; margin-top: 20px">
+              <thead>
+                <tr class="text-left">
+                  <th>Type</th>
+                  <th>Drug Name</th>
+                  <th>Concentration</th>
+                  <th>Times</th>
+                  <th>Period</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for ( item of visit?.prescription?.medicines; track $index ) {
+                <tr class="text-left">
+                  <td style="text-align: center">
+                    {{ item?.medicine?.type }}
+                  </td>
+                  <td style="text-align: center">
+                    {{ item?.medicine?.medName }}
+                  </td>
+                  <td style="text-align: center">
+                    {{ item.concentration }}
+                  </td>
+                  <td style="text-align: center">{{ item.dose }}</td>
+                  <td style="text-align: center">{{ item.period }}</td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          <img
+            src="./assets/د غاده رءوف.jpg"
+            alt="footer prescriptions"
+            style="width: 100%"
+          />
+        </div>
+      </li>
+      }
+    </ol>
+    <nz-modal
+      nzWidth="75%"
+      nzOkDisabled="true"
+      nzFooter=" "
+      [(nzVisible)]="isVisible"
+      nzTitle="زيارات المريض"
+      (nzOnCancel)="handleCancel()"
+    >
+      <ng-container *nzModalContent>
+        <div dir="rtl" class="max-h-[60vh] overflow-y-auto w-[100%]">
+          <ol class="relative border-s border-[#000000] w-[90%] m-auto">
+            @for (visit of visitData; track $index) {
+            <li class="mb-10 ms-6">
+              <span
+                class="absolute flex items-center justify-center bg-white w-5 h-5 border-4 rounded-full border-[#00C894] -start-[11px]"
+              >
+              </span>
+              <div
+                class="w-full bg-[#FDFDFD] border border-[#0000001A] rounded-lg grid grid-cols-5 max-md:grid-cols-3 max-sm:grid-cols-2 gap-6 content-center py-3"
+              >
+                <div class="mx-auto">
+                  <h2 class="font-normal text-base text-[#595959]">التاريخ</h2>
+                  <p class="font-medium text-base">
+                    {{ visit.creationDateTime | date }}
+                  </p>
+                </div>
+                <div class="mx-auto">
+                  <h2 class="font-normal text-base text-[#595959]">الدكتور</h2>
+                  <p class="font-medium text-base">
+                    {{
+                      visit.doctorRedirectedTo?.fullName || "د/غاده عبد الرءوف"
+                    }}
+                  </p>
+                </div>
+
+                <div class="mx-auto">
+                  <h2 class="font-normal text-base text-[#595959]">الممرض</h2>
+                  <p class="font-medium text-base">
+                    {{ visit.nurse || "-----" }}
+                  </p>
+                </div>
+                <div
+                  role="button"
+                  (click)="patientInfo(visit.id)"
+                  class="px-[16px] h-[50px] rounded-lg bg-[#00C894] hover:scale-[.95] text-white flex gap-2 justify-around font-semibold text-xl items-center mx-auto"
+                >
+                  <span
+                    class="icon-[pepicons-pop--file]"
+                    style="width: 24px; height: 24px"
+                  >
+                  </span>
+                  <span>ملف الزياره</span>
+                </div>
+                @if (isDoctor) {
+                <div
+                  role="button"
+                  (click)="printFunc($index)"
+                  class="px-[32px] h-[50px] rounded-lg bg-[#00C894] hover:scale-[.95] text-white flex gap-2 justify-around font-semibold text-xl items-center mx-auto"
+                >
+                  <span
+                    class="icon-[material-symbols-light--prescriptions-outline]"
+                    style="width: 24px; height: 24px"
+                  ></span>
+                  <span>الروشته</span>
+                </div>
+                }
+              </div>
+            </li>
+            }
+          </ol>
+        </div>
+      </ng-container>
+    </nz-modal>
+  </div>
+  }
+</section>

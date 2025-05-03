@@ -1,0 +1,93 @@
+<nz-layout class="layout rtl">
+  <nz-sider
+    [nzWidth]="250"
+    nzCollapsible
+    nzTheme="light"
+    nzReverseArrow="true"
+    nzBreakpoint="lg"
+    [nzCollapsedWidth]="1"
+  >
+    <div class="overflow-hidden w-full">
+      <img
+        src="./assets/Untitled-1-01 3.png"
+        class="w-full"
+        alt="dar-elsoker-logo"
+      />
+    </div>
+    <ul
+      class="space-y-6 flex flex-col justify-between h-[75vh] overflow-hidden pt-[60px] font-semibold text-2xl"
+      role="button"
+    >
+      <div class="space-y-6">
+        <li>
+          <a
+            routerLink="/dashboard"
+            routerLinkActive="active-link"
+            class="flex items-center gap-3 p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+          >
+            <span
+              class="icon-[radix-icons--dashboard] ms-[30px]"
+              style="width: 30px; height: 30px"
+            ></span>
+            <span>لوحه التحكم</span>
+          </a>
+        </li>
+        <li>
+          <a
+            (click)="govisits()"
+            routerLink="/cases"
+            routerLinkActive="active-link"
+            class="flex items-center gap-3 p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+          >
+            <span
+              class="icon-[codicon--git-pull-request] ms-[30px]"
+              style="width: 30px; height: 30px"
+            ></span>
+            <span>الحالات</span>
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/doctors"
+            routerLinkActive="active-link"
+            class="flex items-center gap-3 p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+          >
+            <span
+              class="icon-[healthicons--doctor-male-outline] ms-[30px]"
+              style="width: 30px; height: 30px"
+            ></span>
+            <span>الاطباء</span>
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/patient"
+            routerLinkActive="active-link"
+            class="flex items-center gap-3 p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+          >
+            <span
+              class="icon-[simple-line-icons--people] ms-[30px]"
+              style="width: 30px; height: 30px"
+            ></span>
+            <span>المرضي</span>
+          </a>
+        </li>
+      </div>
+      <div
+        class="flex items-center gap-3 p-2 rounded-lg text-[#C12735] hover:bg-gray-100 group"
+        (click)="signOut()"
+      >
+        <span
+          class="icon-[mingcute--exit-fill] ms-[30px]"
+          style="width: 30px; height: 30px"
+        ></span>
+        تسجيل الخروج
+      </div>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-content>
+      <router-outlet></router-outlet>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

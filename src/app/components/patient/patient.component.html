@@ -1,0 +1,137 @@
+<div class="bg-[#F6F6F6;] h-[100vh]">
+  <div class="flex justify-between items-center bg-white w-[99.5%] mx-auto">
+    <div
+      class="relative m-3 p-2 border border-spacing-1 rounded-lg border-[#00000040]"
+    >
+      <div class="absolute mt-auto start-2 flex">
+        <span
+          class="icon-[ic--round-search] mt-[20%]"
+          style="width: 30px; height: 30px"
+        ></span>
+      </div>
+      <input
+        type="search"
+        id="default-search"
+        class="focus:ring-[none] ps-9"
+        placeholder="ابحث عن المرضي"
+        [(ngModel)]="searchvalue"
+      />
+    </div>
+    <div class="col-span-2 flex">
+      <div class="p-2 m-3 gap-2 flex items-center max-sm:w-1/2">
+        <div class="w-9">
+          <span
+            class="icon-[healthicons--ui-user-profile]"
+            style="width: 35px; height: 35px"
+          ></span>
+        </div>
+        <p>{{ name }}</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="w-[90%] mx-auto rtl">
+    <div class="flex items-center justify-between">
+      <h2 class="py-5 font-normal text-2xl">بيانات المرضي</h2>
+      <!-- <span
+        (click)="goToSave('create')"
+        role="button"
+        class="icon-[gg--add] text-[#00C894]"
+        style="width: 40px; height: 40px"
+      ></span> -->
+    </div>
+
+    <div
+      class="overflow-x-auto text-right px-2 max-h-[75vh] max-sm:max-h-[60vh]"
+    >
+      <table class="w-full">
+        <thead class="font-medium text-xl text-[#595959]">
+          <tr>
+            <th scope="col" class="pb-5 ps-[35px]">الإسم</th>
+            <th scope="col" class="pb-5">رقم التليفون</th>
+            <th scope="col" class="pb-5">السن</th>
+            <th scope="col" class="pb-5"></th>
+            <th scope="col" class="pb-5"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of patientData | search: searchvalue; track $index) {
+            <tr
+              scope="row"
+              class="bg-white font-semibold text-xl border-r-4 border-[#00C894] rounded-l-lg"
+            >
+              <td class="ps-[40px] border-b-[20px] border-[#F6F6F6]">
+                {{ item.fullName }}
+              </td>
+              <td
+                class="py-8 border-b-[20px] max-w-[120px] overflow-hidden text-ellipsis border-[#F6F6F6]"
+              >
+                {{ item.contactInfo.phone }}
+              </td>
+              <td class="border-b-[20px] border-[#F6F6F6]">{{ item.age }}</td>
+              <td class="border-b-[20px] border-[#F6F6F6]">
+                <div
+                  (click)="goPatientDetails(item.id, 'show')"
+                  role="button"
+                  class="w-[200px] h-[40px] bg-[#F6F6F6] rounded-sm m-auto border border-[#00000033] flex justify-evenly items-center"
+                >
+                  <span
+                    class="icon-[pepicons-pencil--file]"
+                    style="width: 30px; height: 30px"
+                  ></span>
+                  <p>ملف المريض</p>
+                </div>
+              </td>
+              <td class="border-b-[20px] border-[#F6F6F6] px-6">
+                <div class="flex flex-wrap gap-3 w-full">
+                  @if (!isDoctor) {
+                    <span
+                      (click)="goPatientinfo(item.id, 'FOLLOWUP')"
+                      role="button"
+                      class="icon-[gg--add] text-[#00C894]"
+                      style="width: 30px; height: 30px"
+                    ></span>
+                  }
+                  <span
+                    role="button"
+                    (click)="goPatientDetails(item.id, 'edit')"
+                    class="icon-[akar-icons--edit] text-[#00C894]"
+                    style="width: 30px; height: 30px"
+                  ></span>
+                  <span
+                    role="button"
+                    (click)="deletePatient(item.id)"
+                    class="icon-[fluent--delete-24-regular] text-[#C12735]"
+                    style="width: 30px; height: 30px"
+                  ></span>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      @if (patientData.length == 0) {
+        <div class="flex items-center justify-center h-60">
+          <nz-empty></nz-empty>
+        </div>
+      }
+    </div>
+    <!-- <div class="text-center py-[10px]">
+      <pagination-controls
+        id="PatientPaginate"
+        (pageChange)="pageChanged($event)"
+        (pageBoundsCorrection)="pageChanged($event)"
+        [maxSize]="7"
+        [directionLinks]="true"
+        [autoHide]="true"
+        [responsive]="true"
+        previousLabel="الصفحه السابقه"
+        nextLabel="الصفحه التاليه"
+        screenReaderPaginationLabel="Pagination"
+        screenReaderPageLabel="page"
+        screenReaderCurrentLabel="You're on page"
+      >
+      </pagination-controls>
+    </div> -->
+  </section>
+</div>

@@ -1,0 +1,15 @@
+.true {
+  color: #00b69b;
+  background-color: #00b69b29;
+}
+.nurse-true {
+  color: #00b69b;
+}
+
+.false {
+  color: #c12735;
+  background-color: #c1273529;
+}
+.nurse-false {
+  color: #c12735;
+}

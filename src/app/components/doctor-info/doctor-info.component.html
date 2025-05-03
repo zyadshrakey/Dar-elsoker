@@ -1,0 +1,125 @@
+<section class="bg-[#F6F6F6;] h-[100vh] mt-0 flex items-center">
+  <div class="w-[80%] mx-auto bg-white rounded-lg shadow-lg p-6 overflow-auto">
+    <div class="flex flex-row-reverse items-center pb-4 max-h-[80]">
+      <div
+        role="button"
+        (click)="goBack()"
+        class="px-5 py-3 grid content-center bg-[#00C894] text-white rounded-lg hover:scale-[.95]"
+      >
+        <span
+          class="icon-[iconamoon--arrow-left-1]"
+          style="width: 30px; height: 30px"
+        ></span>
+      </div>
+    </div>
+    <form
+      [formGroup]="doctorForm"
+      class="flex flex-wrap justify-between gap-y-8 font-normal text-base text-[#595959] text-start"
+    >
+      <!-- <div
+        class="w-[25%] p-[5%] grid content-center border border-dashed border-[#979797] bg-[#F6F6F6] rounded-lg"
+      >
+        <label for="imageUpload" class="cursor-pointer text-center">
+          <span
+            class="icon-[material-symbols--upload] block mx-auto"
+            style="width: 80px; height: 80px"
+          ></span>
+          <span class="text-2xl font-normal">تحميل صوره</span>
+        </label>
+        <input
+          type="file"
+          id="imageUpload"
+          name="image"
+          accept="image/*"
+          class="hidden"
+        />
+      </div> -->
+      <div class="w-full flex flex-wrap">
+        <h1 class="font-semibold text-2xl w-full pb-4 text-[#00C894]">
+          إضافه طبيب
+        </h1>
+        <div formGroupName="contactInfo" class="w-full flex flex-wrap gap-4">
+          <div class="w-[49%]">
+            <label for="firstName" class="block pb-3">الأسم الأول</label>
+            <input
+              type="text"
+              [readOnly]="isDisabled"
+              id="firstName"
+              formControlName="firstName"
+              required
+            />
+          </div>
+          <div class="w-[49%]">
+            <label for="lastName" class="block pb-3">الأسم الأخير</label>
+            <input
+              type="text"
+              [readOnly]="isDisabled"
+              id="lastName"
+              formControlName="lastName"
+              required
+            />
+          </div>
+          <div class="w-[49%]">
+            <label for="email" class="block pb-3">االبريد الالكتروني</label>
+            <input
+              type="email"
+              [readOnly]="isDisabled"
+              id="email"
+              formControlName="email"
+            />
+          </div>
+          <div class="w-[49%]">
+            <label for="phone" class="block pb-3">رقم التليفون</label>
+            <input
+              type="tel"
+              [readOnly]="isDisabled"
+              id="phone"
+              formControlName="phone"
+            />
+          </div>
+          <div class="w-full">
+            <label for="address" class="block pb-3">العنوان</label>
+            <input
+              type="text"
+              [readOnly]="isDisabled"
+              id="address"
+              formControlName="address"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="w-full">
+        <label for="specialization" class="block pb-3">التخصص</label>
+        <input
+          type="text"
+          [readOnly]="isDisabled"
+          id="specialization"
+          formControlName="specialization"
+          required
+        />
+      </div>
+      <div class="w-full">
+        <label for="qualification" class="block pb-3">المؤهلات</label>
+        <textarea id="qualification" formControlName="qualification"></textarea>
+      </div>
+      @if (status === "save") {
+        <button
+          (click)="savedoctor()"
+          type="submit"
+          class="m-auto font-bold text-2xl text-[#FFFFFF] bg-[#00C894] w-[350px] h-[80px] rounded-lg hover:scale-95"
+        >
+          إضافه
+        </button>
+      }
+      @if (status === "edit") {
+        <button
+          (click)="updateDoctor()"
+          type="submit"
+          class="m-auto font-bold text-2xl text-[#FFFFFF] bg-[#00C894] w-[350px] h-[80px] rounded-lg hover:scale-95"
+        >
+          تعديل
+        </button>
+      }
+    </form>
+  </div>
+</section>

@@ -1,0 +1,155 @@
+<div class="bg-[#F6F6F6;] h-[100vh]">
+  <div
+    class="flex justify-between flex-wrap items-center bg-white w-[99.5%] mx-auto"
+  >
+    <div
+      class="relative m-3 p-2 border border-spacing-1 rounded-lg border-[#52464640] max-sm:w-full"
+    >
+      <div class="absolute mt-auto start-2 flex">
+        <span
+          class="icon-[ic--round-search] mt-[20%]"
+          style="width: 30px; height: 30px"
+        ></span>
+      </div>
+      <input
+        type="search"
+        id="default-search"
+        class="focus:ring-[none] ps-9"
+        placeholder="البحث"
+        [(ngModel)]="searchvalue"
+      />
+    </div>
+    <div class="flex max-sm:w-full">
+      <div
+        class="flex items-center gap-3 ms-auto m-3 border border-spacing-0.5 rounded-lg border-[#00000040] p-2 max-sm:w-1/2"
+      >
+        <input
+          type="date"
+          (change)="getAllDoctors()"
+          [(ngModel)]="todayDate"
+          class="focus:ring-[none]"
+        />
+      </div>
+      <div class="p-2 m-3 gap-2 flex items-center max-sm:w-1/2">
+        <div class="w-9">
+          <span
+            class="icon-[healthicons--ui-user-profile]"
+            style="width: 35px; height: 35px"
+          ></span>
+        </div>
+        <p>{{ name }}</p>
+      </div>
+    </div>
+  </div>
+
+  <section
+    class="w-[90%] mx-auto mt-12 flex flex-wrap gap-8 items-center justify-start max-h-[80vh] overflow-y-auto"
+  >
+    @for (item of doctorsData | search: searchvalue; track $index) {
+    <div class="w-[350px] bg-white rounded-lg overflow-hidden shadow-md">
+      <div class="relative w-[350px] h-[101px] bg-[#E0E0E0] rounded-t-lg">
+        <div class="info p-[20px] flex flex-row-reverse">
+          <button
+            class="icon-[mingcute--more-2-fill]"
+            style="width: 30px; height: 30px"
+            nz-dropdown
+            nzTrigger="click"
+            [nzDropdownMenu]="menu"
+          ></button>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul
+              role="button"
+              nz-menu
+              class="rounded bg-[#FFFFFF] border border-[#0000001A] w-[120px] text-xs font-normal text-[#666666] z-40"
+            >
+              <li
+                class="flex gap-3 p-[10px] border-b"
+                (click)="getPatientRedirect(item.id)"
+              >
+                <span
+                  class="icon-[tabler--table]"
+                  style="width: 10px; height: 10px"
+                ></span>
+                <h6>سجل المرضي</h6>
+              </li>
+              <li
+                class="flex gap-3 p-[10px] border-b"
+                id="info"
+                (click)="goWithId('info', item.id)"
+              >
+                <span
+                  class="icon-[fluent--text-bullet-list-square-48-filled]"
+                  style="width: 10px; height: 10px"
+                ></span>
+                <h6>بيانات الدكتور</h6>
+              </li>
+              @if (isDoctor) {
+              <li
+                class="flex gap-3 p-[10px] border-b"
+                id="edit"
+                (click)="goWithId('edit', item.id)"
+              >
+                <span
+                  class="icon-[akar-icons--edit]"
+                  style="width: 10px; height: 10px"
+                ></span>
+                <h6>تعديل البيانات</h6>
+              </li>
+              <li
+                class="flex gap-3 p-[10px] border-b"
+                (click)="deleteDoctor(item.id)"
+              >
+                <span
+                  class="icon-[fluent--delete-24-regular]"
+                  style="width: 10px; height: 10px"
+                ></span>
+                <h6>حذف الدكتور</h6>
+              </li>
+              }
+            </ul>
+          </nz-dropdown-menu>
+        </div>
+        <div
+          class="absolute top-[35px] left-[122px] w-[105px] h-[105px] bg-[#ffffff] rounded-full"
+        >
+          <span
+            class="icon-[healthicons--doctor-male] border border-white p-4"
+            style="width: 105px; height: 105px"
+          ></span>
+        </div>
+      </div>
+      <h2 class="mt-16 text-center font-semibold text-3xl">
+        {{ item.fullName }}
+      </h2>
+      <p class="text-center font-medium text-xl text-[#595959] mt-3">
+        {{ item.specialization }}
+      </p>
+      <div class="flex justify-between w-[80%] m-auto text-center my-6">
+        <div>
+          <p class="font-normal text-base text-[#595959] mb-3">
+            الحالات المحوله
+          </p>
+          <span class="text-xl font-bold">
+            {{ item.totalRedirectedPatient }}
+          </span>
+        </div>
+        <div class="w-[1px] h-[40px] bg-[#59595980] mt-7"></div>
+        <div>
+          <p class="font-normal text-base text-[#595959] mb-3">حالات الكشف</p>
+          <span class="text-xl font-bold">
+            {{ item.totalCompletedRedirections }}
+          </span>
+        </div>
+      </div>
+    </div>
+    } @if (isDoctor) {
+    <div class="w-[350px] text-center" role="button">
+      <span
+        (click)="goInfo()"
+        class="icon-[zondicons--add-solid] bg-[#00C894;] hover:bg-[#00B69B95;]"
+        style="width: 100px; height: 100px"
+      ></span>
+    </div>
+    }
+  </section>
+</div>

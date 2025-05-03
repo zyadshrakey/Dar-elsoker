@@ -1,0 +1,12 @@
+<div class="relative">
+  <router-outlet></router-outlet>
+  @if (_IsLoaderService.isLoading) {
+    <div
+      class="absolute bg-black flex items-center bg-opacity-50 top-0 bottom-0 right-0 left-0 z-50"
+    >
+      <div class="w-[15%] mx-auto">
+        <i class="fa-solid fa-spinner fa-spin text-9xl text-[#00C894]"></i>
+      </div>
+    </div>
+  }
+</div>

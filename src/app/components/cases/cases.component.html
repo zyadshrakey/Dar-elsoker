@@ -1,0 +1,201 @@
+<div class="bg-[#F6F6F6;] h-[100vh] overflow-hidden">
+  <div
+    class="flex justify-between flex-wrap items-center bg-white w-[99.5%] mx-auto"
+  >
+    <div class="flex ms-auto max-sm:w-full">
+      <div
+        class="flex items-center gap-3 ms-auto m-3 border border-spacing-0.5 rounded-lg border-[#00000040] p-2 max-sm:w-1/2"
+      >
+        <input
+          type="date"
+          (change)="getVisitsByStatus()"
+          [(ngModel)]="todayDate"
+          class="focus:ring-[none]"
+        />
+      </div>
+      <div class="p-2 m-3 gap-2 flex items-center max-sm:w-1/2">
+        <div class="w-9">
+          <span
+            class="icon-[healthicons--ui-user-profile]"
+            style="width: 35px; height: 35px"
+          ></span>
+        </div>
+        <p>{{ name }}</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="w-full overflow-hidden">
+    @if (!isDoctor) {
+      <div
+        class="w-[650px] m-auto flex justify-between max-sm:w-full max-sm:flex-col gap-3 pt-[68px]"
+      >
+        <button
+          (click)="CHECKUP()"
+          class="w-[250px] h-[80px] max-sm:w-[80%] m-auto bg-[#00C894] text-[#FFFFFF] text-2xl font-bold rounded-lg hover:scale-[.95]"
+        >
+          كشف
+        </button>
+        <button
+          (click)="FOLLOWUP()"
+          class="w-[250px] h-[80px] max-sm:w-[80%] m-auto bg-[#00C894] text-[#FFFFFF] text-2xl font-bold rounded-lg hover:scale-[.95]"
+        >
+          إعاده
+        </button>
+      </div>
+    }
+    <div
+      class="w-[90%] mx-auto relative overflow-auto mt-12 rounded-t-lg"
+      [ngClass]="isDoctor ? 'max-h-[80vh]' : 'max-h-[62vh] max-sm:max-h-[50vh]'"
+    >
+      <table
+        class="w-full m-auto shadow-md text-center rounded-lg overflow-scroll"
+      >
+        <thead class="text-sm font-medium text-[#1D2433] bg-[#00C8948C]">
+          <tr>
+            <th scope="col" class="py-3">التسلسل</th>
+            <th scope="col" class="py-3">المريض</th>
+            <th scope="col" class="py-3">الطول</th>
+            <th scope="col" class="py-3">الوزن</th>
+            <th scope="col" class="py-3">الحاله</th>
+            <th scope="col" class="py-3">حاله الكشف</th>
+            <th scope="col" class="py-3">التحويل</th>
+            <th scope="col" class="py-3"></th>
+          </tr>
+        </thead>
+        <tbody class="mt-4">
+          @if (visitsData.length > 0) {
+            @for (data of visitsData; track $index) {
+              <tr class="bg-white border-b">
+                <th scope="row" class="font-normal text-sm py-3">
+                  {{ $index + 1 }}
+                </th>
+                <td
+                  class="font-normal text-sm py-3 whitespace-nowrap max:w-[280px] text-ellipsis"
+                >
+                  {{ data.patient.fullName }}
+                </td>
+                <td class="font-normal text-sm">
+                  <span class="text-xs inline-block">cm</span>
+                  <p class="p-1 inline-block">
+                    {{ data.medicalRecord.height }}
+                  </p>
+                </td>
+                <td class="font-normal text-sm py-3">
+                  <span class="inline-block">kg</span>
+                  <p class="inline-block p-1">
+                    {{ data.medicalRecord.weight }}
+                  </p>
+                </td>
+                <td class="font-normal text-sm py-3">
+                  {{ data.type === "CHECKUP" ? "كشف" : "اعاده" }}
+                </td>
+                <td class="font-normal text-sm items-center">
+                  @if (!status && !isDoctor) {
+                    <button
+                      (click)="upDateVisite(data.id, data.redirectionCompleted)"
+                      class="w-[120px] h-[33px] ms-auto rounded-md text-sm font-bold"
+                      [ngClass]="data.redirectionCompleted ? 'true' : 'false'"
+                    >
+                      <span>
+                        @if (isLoading && visitId == data.id) {
+                          <i class="fa-solid fa-spinner fa-spin"></i>
+                        }
+                      </span>
+                      {{ data.redirectionCompleted ? "تم الكشف" : "لم يكشف" }}
+                    </button>
+                  }
+                  @if (!status && isDoctor) {
+                    <p
+                      class="rounded-md text-sm font-bold"
+                      [ngClass]="
+                        data.visitCompleted ? 'nurse-true' : 'nurse-false'
+                      "
+                    >
+                      {{ data.visitCompleted ? "تم الكشف" : "لم يكشف" }}
+                    </p>
+                  }
+                  @if (isDoctor && status) {
+                    <button
+                      (click)="upDateVisite(data.id, data.visitCompleted)"
+                      class="w-[120px] h-[33px] ms-auto rounded-md text-sm font-bold"
+                      [ngClass]="data.visitCompleted ? 'true' : 'false'"
+                    >
+                      <span>
+                        @if (isLoading && visitId == data.id) {
+                          <i class="fa-solid fa-spinner fa-spin"></i>
+                        }
+                      </span>
+                      {{ data.visitCompleted ? "تم الكشف" : "لم يكشف" }}
+                    </button>
+                  }
+                  @if (!isDoctor && status) {
+                    <p
+                      class="rounded-md text-sm font-bold"
+                      [ngClass]="
+                        data.visitCompleted ? 'nurse-true' : 'nurse-false'
+                      "
+                    >
+                      {{ data.visitCompleted ? "تم الكشف" : "لم يكشف" }}
+                    </p>
+                  }
+                </td>
+                <td class="py-[10px]">
+                  @if (isDoctor) {
+                    <form class="font-normal text-base rounded-lg">
+                      <select
+                        (change)="redirectVisit(data.id, $event)"
+                        id="countries"
+                        class="w-[180px] rounded-lg text-black"
+                      >
+                        @if (data.doctorRedirectedTo == null) {
+                          <option class="text-black">تحويل</option>
+                          @for (item of doctorData; track $index) {
+                            <option
+                              [value]="item.id"
+                              role="button"
+                              class="text-black"
+                            >
+                              {{ item.fullName }}
+                            </option>
+                          }
+                        }
+                        @if (data.doctorRedirectedTo != null) {
+                          <option class="!text-[#00C894] font-normal text-xs">
+                            د/ {{ data.doctorRedirectedTo.fullName }}
+                          </option>
+                        }
+                      </select>
+                    </form>
+                  }
+                  @if (!isDoctor) {
+                    @if (data.doctorRedirectedTo != null) {
+                      <p class="font-normal text-sm">
+                        د/ {{ data.doctorRedirectedTo.fullName }}
+                      </p>
+                    } @else {
+                      <p class="font-normal text-sm">ـــــــــــــــــ</p>
+                    }
+                  }
+                </td>
+                @if (isDoctor) {
+                  <td (click)="goInfo(data.id, 'info')" role="button">
+                    <span
+                      class="icon-[mingcute--more-2-fill]"
+                      style="width: 30px; height: 30px"
+                    ></span>
+                  </td>
+                }
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+      @if (visitsData.length == 0) {
+        <div class="flex items-center justify-center h-60">
+          <nz-empty></nz-empty>
+        </div>
+      }
+    </div>
+  </section>
+</div>

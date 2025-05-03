@@ -1,0 +1,48 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url("https://fonts.googleapis.com/css2?family=Cairo:slnt,wght@-11..11,200..1000&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: "Cairo";
+  scroll-behavior: smooth;
+}
+
+.active-link {
+  color: #00c894 !important;
+}
+
+.rtl {
+  direction: rtl;
+}
+
+input {
+  border: none;
+  outline: none;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  width: 25px;
+  height: 25px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #0000001a;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #979797;
+  border-radius: 2px;
+}

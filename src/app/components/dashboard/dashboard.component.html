@@ -1,0 +1,189 @@
+@if (!token && _IsLoaderService.isLoading) {
+<div
+  class="bg-black h-[100vh] absolute w-full flex bg-opacity-50 items-center top-0 bottom-0 right-0 left-0 z-50"
+>
+  <img
+    class="w-full bg-[#00C894]"
+    nz-image
+    nzSrc="./assets/Untitled-1-01.png"
+    nzPlaceholder="./assets/imageedit .png"
+    nzDisablePreview
+    alt="dar-elsoker-logo"
+  />
+</div>
+}
+<div class="bg-[#F6F6F6;] h-[100vh]">
+  <div
+    class="flex justify-between flex-wrap items-center bg-white w-[99.5%] mx-auto"
+  >
+    <div
+      class="relative m-3 p-2 border border-spacing-1 rounded-lg border-[#52464640] max-sm:w-full"
+    >
+      <div class="absolute mt-auto start-2 flex">
+        <span
+          class="icon-[ic--round-search] mt-[20%]"
+          style="width: 30px; height: 30px"
+        ></span>
+      </div>
+      <input
+        type="search"
+        id="default-search"
+        class="focus:ring-[none] ps-9"
+        placeholder="البحث"
+        [(ngModel)]="searchvalue"
+      />
+    </div>
+    <div class="flex max-sm:w-full">
+      <div
+        class="flex items-center gap-3 ms-auto m-3 border border-spacing-0.5 rounded-lg border-[#00000040] p-2 max-sm:w-1/2"
+      >
+        <input
+          (change)="getStatisticsData()"
+          (change)="getDoctorData()"
+          type="date"
+          [(ngModel)]="todayDate"
+          class="focus:ring-[none]"
+        />
+      </div>
+      <div class="p-2 m-3 gap-2 flex items-center max-sm:w-1/2">
+        <div class="w-9">
+          <span
+            class="icon-[healthicons--ui-user-profile]"
+            style="width: 35px; height: 35px"
+          ></span>
+        </div>
+        <p>{{ name }}</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="w-full">
+    <div class="flex flex-wrap gap-4 py-6 w-[90%] m-auto">
+      <div class="shadow-lg rounded-xl bg-white w-[280px] max-sm:w-full">
+        <div class="grid grid-cols-8 content-center py-2 px-2">
+          <img src="./assets/simple-line-icons_people.png" alt="icons" />
+          <p
+            class="col-span-6 text-2xl font-medium whitespace-nowrap max-w-[120px] mx-auto overflow-hidden text-ellipsis"
+          >
+            حالات اليوم
+          </p>
+          <span
+            (click)="govisits('ALL')"
+            #ALL
+            role="button"
+            class="icon-[mingcute--more-2-fill]"
+            style="width: 30px; height: 30px"
+          ></span>
+        </div>
+        <h3 class="font-bold text-5xl grid justify-center pt-4 me-4">
+          {{ statisticsData.todayVisits || "0" }}
+        </h3>
+        <span class="grid justify-center ms-[40%] pb-8"> مريض </span>
+      </div>
+      <div class="shadow-lg rounded-xl bg-white w-[280px] max-sm:w-full">
+        <div class="grid grid-cols-8 content-center py-2 px-2">
+          <img src="./assets/lets-icons_done-ring-round.svg" alt="icons" />
+          <p
+            class="col-span-6 text-2xl font-medium whitespace-nowrap max-w-[120px] mx-auto overflow-hidden text-ellipsis"
+          >
+            تم الكشف
+          </p>
+          <span
+            (click)="govisits('COMPLETED')"
+            #COMPLETED
+            role="button"
+            class="icon-[mingcute--more-2-fill]"
+            style="width: 30px; height: 30px"
+          ></span>
+        </div>
+        <h3 class="font-bold text-5xl grid justify-center pt-4 me-4">
+          {{ statisticsData.completedVisits || "0" }}
+        </h3>
+        <span class="grid justify-center ms-[40%] pb-8"> مريض </span>
+      </div>
+      <div class="shadow-lg rounded-xl bg-white w-[280px] max-sm:w-full">
+        <div class="grid grid-cols-8 content-center py-2 px-2">
+          <img src="./assets/mingcute_transfer-line.svg" alt="icons" />
+          <p
+            class="col-span-6 text-2xl font-medium whitespace-nowrap max-w-[180px] mx-auto overflow-hidden text-ellipsis"
+          >
+            الحالات المحوله
+          </p>
+          <span
+            (click)="govisits('REDIRECTED')"
+            #REDIRECTED
+            role="button"
+            class="icon-[mingcute--more-2-fill]"
+            style="width: 30px; height: 30px"
+          ></span>
+        </div>
+        <h3 class="font-bold text-5xl grid justify-center pt-4 me-4">
+          {{ statisticsData.redirectedVisits || "0" }}
+        </h3>
+        <span class="grid justify-center ms-[40%] pb-8"> مريض </span>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto max-h-[60vh]">
+      <table
+        class="w-[90%] m-auto shadow-md text-center rounded-lg overflow-auto max-h-[62vh]"
+      >
+        <thead class="text-sm font-medium text-[#1D2433] bg-[#00C8948C]">
+          <tr>
+            <th scope="col" class="py-[10px]">التسلسل</th>
+            <th scope="col" class="py-[10px]">الدكتور</th>
+            <th scope="col" class="py-[10px]">التخصص</th>
+            <th scope="col" class="py-[10px]">رقم التليفون</th>
+            <th scope="col" class="py-[10px]">الحالات المحوله</th>
+            <th scope="col" class="py-[10px]">تم الكشف</th>
+            <th scope="col" class="py-[10px]"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (data of dashTable | search: searchvalue; track $index) {
+          <tr class="bg-white border-b">
+            <th scope="row">
+              {{ $index + 1 }}
+            </th>
+            <td class="py-[10px] whitespace-nowrap text-ellipsis">
+              {{ data.fullName }}
+            </td>
+            <td>
+              {{ data.specialization }}
+            </td>
+            <td>
+              {{ data.contactInfo.phone }}
+            </td>
+            <td>
+              {{ data.totalRedirectedPatient }}
+            </td>
+            <td>
+              {{ data.totalCompletedRedirections }}
+            </td>
+            <td>
+              <button
+                (click)="updateDocter(data.id, data.availability)"
+                #btnAvl
+                class="w-[120px] h-[33px] ms-auto rounded-md text-sm font-bold"
+                [ngClass]="data.availability ? 'true' : 'false'"
+              >
+                <span>
+                  @if (isLoading && doctorId == data.id) {
+                  <i class="fa-solid fa-spinner fa-spin"></i>
+                  }
+                </span>
+                {{ data.availability ? "متاح" : "غير متاح" }}
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    @if (dashTable.length == 0) {
+    <div class="flex items-center justify-center h-60">
+      <nz-empty></nz-empty>
+    </div>
+    }
+  </section>
+</div>

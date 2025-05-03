@@ -1,0 +1,410 @@
+<section class="bg-[#F6F6F6;] h-[100vh]">
+  <div class="flex justify-between items-center bg-white w-[99.5%] mx-auto">
+    <div class="p-2 m-3 gap-2 flex items-center max-sm:w-1/2">
+      <div class="w-9">
+        <span
+          class="icon-[healthicons--ui-user-profile]"
+          style="width: 35px; height: 35px"
+        ></span>
+      </div>
+      <p>{{ name }}</p>
+    </div>
+  </div>
+  <div class="w-[90%] mx-auto bg-white mt-7 rounded-lg shadow-lg p-6">
+    <div class="flex justify-between items-center">
+      <p class="font-semibold text-2xl text-[#00C894]">البيانات الشخصيه</p>
+      <div
+        role="button"
+        (click)="goBack()"
+        class="px-5 py-3 grid content-center bg-[#00C894] text-white rounded-lg hover:scale-[.95]"
+      >
+        <span
+          class="icon-[iconamoon--arrow-left-1]"
+          style="width: 30px; height: 30px"
+        ></span>
+      </div>
+    </div>
+    <form
+      [formGroup]="detailsForm"
+      class="max-h-[75vh] grid gap-4 overflow-y-auto"
+    >
+      <div formGroupName="patient">
+        <div class="flex flex-wrap gap-y-3 w-[90%]" formGroupName="contactInfo">
+          <div class="w-[50%]">
+            <label for="firstName" class="block pb-3">الأسم الأول</label>
+            <input type="text" id="firstName" formControlName="firstName" />
+          </div>
+          <div class="w-[50%]">
+            <label for="lastName" class="block pb-3">الأسم الأخير</label>
+            <input type="text" id="lastName" formControlName="lastName" />
+          </div>
+          <div class="w-[50%]">
+            <label for="phone" class="block pb-3">رقم التليفون</label>
+            <input type="tel" id="phone" formControlName="phone" />
+          </div>
+          <div class="w-1/2">
+            <label for="adress" class="block pb-3">العنوان</label>
+            <input type="text" id="adress" formControlName="address" />
+          </div>
+        </div>
+        <div class="w-[45%]">
+          <label for="age" class="block pb-3">السن</label>
+          <input type="numder" class="py-2" id="age" formControlName="age" />
+        </div>
+        <!-- <button class="px-5 py-3 grid content-center m-auto mt-4 bg-[#00C894] text-white text-2xl font-extrabold rounded-lg hover:scale-[.95]">اضف المريض</button> -->
+      </div>
+      <div class="grid gap-y-8" formGroupName="medicalRecord">
+        <p class="font-semibold pt-8 text-2xl text-[#00C894]">بيانات المريض</p>
+        <div class="grid grid-cols-4 pt-2">
+          <div class="flex items-center w-2/3 gap-4">
+            <label for="" class="font-normal text-base text-[#595959]"
+              >الطول</label
+            >
+            <input type="number" class="p-3" formControlName="height" />
+          </div>
+          <div class="flex items-center w-2/3 gap-4">
+            <label for="" class="font-normal text-base text-[#595959]"
+              >الوزن</label
+            >
+            <input type="number" class="p-3" formControlName="weight" />
+          </div>
+          <div class="flex items-center w-2/3 gap-4">
+            <label for="" class="font-normal text-base text-[#595959]"
+              >مده السكر</label
+            >
+            <input
+              type="number"
+              class="p-3"
+              formControlName="durationOfDiabetes"
+            />
+          </div>
+        </div>
+
+        <div class="flex items-center w-[95%] gap-4">
+          <label for="" class="font-normal text-base text-[#595959]"
+            >الأدويه</label
+          >
+          <textarea id="" formControlName="medications"></textarea>
+        </div>
+
+        <div class="flex items-center w-[95%] gap-4">
+          <label
+            for=""
+            class="font-normal text-base text-[#595959] whitespace-nowrap"
+            >نظام غذائي</label
+          >
+          <textarea id="" formControlName="diet"></textarea>
+        </div>
+
+        <div class="flex w-[95%] gap-4">
+          <label for="" class="font-normal text-base text-[#595959]">
+            <div class="text-center">
+              <p>التحاليل</p>
+              <!-- <small class="underline text-[#979797]">2/12/2024</small> -->
+            </div>
+          </label>
+          <div class="grid gap-y-4 whitespace-nowrap">
+            <label
+              for="checkbox-1"
+              class="flex items-center gap-5 cursor-pointer"
+            >
+              <input
+                id="checkbox-1"
+                type="checkbox"
+                class="hidden peer"
+                formControlName="fastingBloodSugarTested"
+              />
+              <span
+                class="mr-2 w-5 h-5 rounded bg-white border border-gray-300 peer-checked:border-[#00C894] peer-checked:bg-[#00C894]"
+              >
+                <span
+                  class="icon-[ic--twotone-check] text-white"
+                  style="width: 20px; height: 20px"
+                ></span>
+              </span>
+              <label
+                for=""
+                class="w-[200px] overflow-hidden text-ellipsis font-normal text-xl"
+                >سكر صائم</label
+              >
+              <input type="text" formControlName="fastingBloodSugar" />
+            </label>
+            <label
+              for="checkbox-2"
+              class="flex items-center gap-5 cursor-pointer"
+            >
+              <input
+                id="checkbox-2"
+                type="checkbox"
+                class="hidden peer"
+                formControlName="randomBloodSugarTested"
+              />
+              <span
+                class="mr-2 w-5 h-5 rounded bg-white border border-gray-300 peer-checked:border-[#00C894] peer-checked:bg-[#00C894]"
+              >
+                <span
+                  class="icon-[ic--twotone-check] text-white"
+                  style="width: 20px; height: 20px"
+                ></span>
+              </span>
+              <label
+                for=""
+                class="w-[200px] overflow-hidden text-ellipsis font-normal text-xl"
+                >سكر فاطر</label
+              >
+              <input type="text" formControlName="randomBloodSugar" />
+            </label>
+            <label
+              for="checkbox-3"
+              class="flex items-center gap-5 cursor-pointer"
+            >
+              <input
+                id="checkbox-3"
+                type="checkbox"
+                class="hidden peer"
+                formControlName="cumulativeBloodSugarTested"
+              />
+              <span
+                class="mr-2 w-5 h-5 rounded bg-white border border-gray-300 peer-checked:border-[#00C894] peer-checked:bg-[#00C894]"
+              >
+                <span
+                  class="icon-[ic--twotone-check] text-white"
+                  style="width: 20px; height: 20px"
+                ></span>
+              </span>
+              <label
+                for=""
+                class="w-[200px] overflow-hidden text-ellipsis font-normal text-xl"
+                >سكر تراكمي</label
+              >
+              <input type="text" formControlName="cumulativeBloodSugar" />
+            </label>
+          </div>
+        </div>
+
+        <div class="w-1/2 mx-auto h-[1px] bg-[#00000059]"></div>
+
+        <div class="flex w-[95%] gap-4">
+          <label for="" class="font-normal text-base text-[#595959]">
+            <div class="text-center">
+              <p>الفحوصات</p>
+              <!-- <small class="underline text-[#979797]">2/12/2024</small> -->
+            </div>
+          </label>
+          <div class="grid gap-y-4 whitespace-nowrap">
+            <label
+              for="checkbox-4"
+              class="flex items-center gap-5 cursor-pointer"
+            >
+              <input
+                id="checkbox-4"
+                type="checkbox"
+                class="hidden peer"
+                formControlName="kendyExaminationTested"
+              />
+              <span
+                class="mr-2 w-5 h-5 rounded bg-white border border-gray-300 peer-checked:border-[#00C894] peer-checked:bg-[#00C894]"
+              >
+                <span
+                  class="icon-[ic--twotone-check] text-white"
+                  style="width: 20px; height: 20px"
+                ></span>
+              </span>
+              <label
+                for=""
+                class="w-[200px] overflow-hidden text-ellipsis font-normal text-xl"
+                >وظائف كلي</label
+              >
+              <input type="text" formControlName="kendyExamination" />
+            </label>
+            <label
+              for="checkbox-5"
+              class="flex items-center gap-5 cursor-pointer"
+            >
+              <input
+                id="checkbox-5"
+                type="checkbox"
+                class="hidden peer"
+                formControlName="eyeExamination"
+              />
+              <span
+                class="mr-2 w-5 h-5 rounded bg-white border border-gray-300 peer-checked:border-[#00C894] peer-checked:bg-[#00C894]"
+              >
+                <span
+                  class="icon-[ic--twotone-check] text-white"
+                  style="width: 20px; height: 20px"
+                ></span>
+              </span>
+              <label
+                for=""
+                class="w-[200px] overflow-hidden text-ellipsis font-normal text-xl"
+                >فحص قاع العين</label
+              >
+            </label>
+            <label
+              for="checkbox-6"
+              class="flex items-center gap-5 cursor-pointer"
+            >
+              <input
+                id="checkbox-6"
+                type="checkbox"
+                class="hidden peer"
+                formControlName="ecg"
+              />
+              <span
+                class="mr-2 w-5 h-5 rounded bg-white border border-gray-300 peer-checked:border-[#00C894] peer-checked:bg-[#00C894]"
+              >
+                <span
+                  class="icon-[ic--twotone-check] text-white"
+                  style="width: 20px; height: 20px"
+                ></span>
+              </span>
+              <label
+                for=""
+                class="w-[200px] overflow-hidden text-ellipsis font-normal text-xl"
+                >رسم القلب</label
+              >
+            </label>
+          </div>
+        </div>
+
+        <div class="w-1/2 mx-auto h-[1px] bg-[#00000059]"></div>
+
+        <div class="grid grid-cols-6 items-center text-wrap">
+          <label for="" class="font-normal text-base text-[#595959]">
+            <div class="text-center">
+              <p>شكاوي</p>
+              <!-- <small class="underline text-[#979797]">2/12/2024</small> -->
+            </div>
+          </label>
+          <label
+            for="checkbox-7"
+            class="flex items-center gap-4 cursor-pointer"
+          >
+            <input
+              id="checkbox-7"
+              type="checkbox"
+              class="hidden peer"
+              formControlName="numbness"
+            />
+            <span
+              class="mr-2 w-5 h-5 rounded bg-white border border-gray-300 peer-checked:border-[#00C894] peer-checked:bg-[#00C894]"
+            >
+              <span
+                class="icon-[ic--twotone-check] text-white"
+                style="width: 20px; height: 20px"
+              ></span>
+            </span>
+            <label
+              for=""
+              class="w-[200px] overflow-hidden text-ellipsis font-normal text-xl"
+              >تنميل</label
+            >
+          </label>
+          <label
+            for="checkbox-8"
+            class="flex items-center gap-4 cursor-pointer"
+          >
+            <input
+              id="checkbox-8"
+              type="checkbox"
+              class="hidden peer"
+              formControlName="burnings"
+            />
+            <span
+              class="mr-2 w-5 h-5 rounded bg-white border border-gray-300 peer-checked:border-[#00C894] peer-checked:bg-[#00C894]"
+            >
+              <span
+                class="icon-[ic--twotone-check] text-white"
+                style="width: 20px; height: 20px"
+              ></span>
+            </span>
+            <label
+              for=""
+              class="w-[200px] overflow-hidden text-ellipsis font-normal text-xl"
+              >حرقان</label
+            >
+          </label>
+          <label
+            for="checkbox-9"
+            class="flex items-center gap-4 cursor-pointer"
+          >
+            <input
+              id="checkbox-9"
+              type="checkbox"
+              class="hidden peer"
+              formControlName="sting"
+            />
+            <span
+              class="mr-2 w-5 h-5 rounded bg-white border border-gray-300 peer-checked:border-[#00C894] peer-checked:bg-[#00C894]"
+            >
+              <span
+                class="icon-[ic--twotone-check] text-white"
+                style="width: 20px; height: 20px"
+              ></span>
+            </span>
+            <label
+              for=""
+              class="w-[200px] overflow-hidden text-ellipsis font-normal text-xl"
+              >شكشكه</label
+            >
+          </label>
+          <label
+            for="checkbox-10"
+            class="flex items-center gap-4 cursor-pointer"
+          >
+            <input
+              id="checkbox-10"
+              type="checkbox"
+              class="hidden peer"
+              formControlName="coolerLimbs"
+            />
+            <span
+              class="mr-2 w-5 h-5 rounded bg-white border border-gray-300 peer-checked:border-[#00C894] peer-checked:bg-[#00C894]"
+            >
+              <span
+                class="icon-[ic--twotone-check] text-white"
+                style="width: 20px; height: 20px"
+              ></span>
+            </span>
+            <label
+              for=""
+              class="w-[200px] overflow-hidden text-ellipsis font-normal text-xl"
+              >برودة الأطراف</label
+            >
+          </label>
+          <label
+            for="checkbox-11"
+            class="flex items-center gap-4 cursor-pointer"
+          >
+            <input
+              id="checkbox-11"
+              type="checkbox"
+              class="hidden peer"
+              formControlName="muscleStrain"
+            />
+            <span
+              class="mr-2 w-5 h-5 rounded bg-white border border-gray-300 peer-checked:border-[#00C894] peer-checked:bg-[#00C894]"
+            >
+              <span
+                class="icon-[ic--twotone-check] text-white"
+                style="width: 20px; height: 20px"
+              ></span>
+            </span>
+            <label
+              for=""
+              class="w-[200px] overflow-hidden text-ellipsis font-normal text-xl"
+              >شد عضلي</label
+            >
+          </label>
+        </div>
+      </div>
+      <button
+        (click)="saveVisit()"
+        class="w-[20%] m-auto pt-2 font-bold text-lg px-5 py-3 grid content-center bg-[#00C894] text-white rounded-lg hover:scale-[.95]"
+      >
+        اضافه
+      </button>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,380 @@
+{
+  "dashboard": [
+    {
+      "id": "1",
+      "name": "ziad ",
+      "depart": "heart",
+      "number": "0123456789",
+      "cases": "15",
+      "done": "10",
+      "available": true
+    },
+    {
+      "id": "1",
+      "name": "ahmed",
+      "depart": "heart",
+      "number": "0123456789",
+      "cases": "15",
+      "done": "10",
+      "available": true
+    },
+    {
+      "id": "1",
+      "name": "mohamed",
+      "depart": "heart",
+      "number": "0123456789",
+      "cases": "15",
+      "done": "10",
+      "available": true
+    },
+    {
+      "id": "1",
+      "name": "yasser",
+      "depart": "heart",
+      "number": "0123456789",
+      "cases": "15",
+      "done": "10",
+      "available": true
+    },
+    {
+      "id": "1",
+      "name": "عبد الرحمن",
+      "depart": "heart",
+      "number": "0123456789",
+      "cases": "15",
+      "done": "10",
+      "available": false
+    },
+    {
+      "id": "1",
+      "name": "الطوخي",
+      "depart": "heart",
+      "number": "0123456789",
+      "cases": "15",
+      "done": "10",
+      "available": false
+    }
+  ],
+  "subDash": [
+    {
+      "Patient": "200",
+      "image": "./assets/simple-line-icons_people.png",
+      "title": "مريض",
+      "desc": "حالات اليوم"
+    },
+    {
+      "Patient": "150",
+      "image": "./assets/lets-icons_done-ring-round.svg",
+      "title": "مريض",
+      "desc": "تم الكشف"
+    },
+    {
+      "Patient": "50",
+      "image": "./assets/mingcute_transfer-line.svg",
+      "title": "مريض",
+      "desc": "الحالات المحوله"
+    }
+  ],
+  "appontment": [
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": true
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": true
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": true
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": true
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": true
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": true
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": true
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": true
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": true
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": true
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": true
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": true
+    },
+    {
+      "name": "محمد احمد السيد",
+      "height": "185",
+      "weight": "85",
+      "case": "كشف حاله",
+      "available": false
+    }
+  ],
+  "doctors": [
+    {
+      "name": "محمود خالد",
+      "Majored": "دكتور العظام",
+      "transCases": "100",
+      "doneCases": "68"
+    },
+    {
+      "name": "محمد حجازي",
+      "Majored": "دكتور القلب",
+      "transCases": "60",
+      "doneCases": "56"
+    },
+    {
+      "name": "محمد السملاوي",
+      "Majored": "دكتور جراحه",
+      "transCases": "100",
+      "doneCases": "68"
+    },
+    {
+      "name": "أسامه حجازي",
+      "Majored": "دكتور باطنه",
+      "transCases": "120",
+      "doneCases": "68"
+    },
+    {
+      "name": "محمد عبدالرحمن",
+      "Majored": "دكتور انف واذن",
+      "transCases": "100",
+      "doneCases": "106"
+    }
+  ],
+  "patient": [
+    { "name": "عبدالرحمن زكريا", "phone": "01123456789", "age": "47" },
+    { "name": "محمد عبدالله", "phone": "01123456789", "age": "47" },
+    { "name": "السيد طلعت", "phone": "01123456789", "age": "47" },
+    { "name": "نهي عاطف", "phone": "01123456789", "age": "47" },
+    { "name": "احمد منير", "phone": "01123456789", "age": "47" },
+    { "name": "زكريا إسماعيل", "phone": "01123456789", "age": "47" },
+    { "name": "عبدالرحمن زكريا", "phone": "01123456789", "age": "47" }
+  ]
+}

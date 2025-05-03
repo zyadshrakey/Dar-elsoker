@@ -1,0 +1,245 @@
+<section class="bg-[#F6F6F6;] h-[100vh]">
+  <div class="flex justify-between items-center bg-white w-[99.5%] mx-auto">
+    <div class="p-2 m-3 gap-2 flex items-center max-sm:w-1/2">
+      <div class="w-9">
+        <span
+          class="icon-[healthicons--ui-user-profile]"
+          style="width: 35px; height: 35px"
+        ></span>
+      </div>
+      <p>{{ name }}</p>
+    </div>
+  </div>
+  <div
+    class="w-[80%] bg-[#FFFFFF] min-h-[380px] max-h-[80vh] overflow-auto mx-auto my-[50px] rounded-lg shadow-lg"
+  >
+    <p class="font-semibold text-[#00C894] text-base mx-[50px] py-[20px]">
+      إختيار العلاج
+    </p>
+    <div class="mx-[50px] py-[24px]">
+      <form [formGroup]="form">
+        <div formArrayName="inputs">
+          @for (inputGroup of inputGroups.controls; track $index) {
+            <div
+              class="flex justify-evenly gap-y-1 w-[90%] m-auto flex-wrap gap-2"
+              formGroupName="{{ $index }}"
+            >
+              <nz-select
+                formControlName="type"
+                class="w-[100px]"
+                [nzSize]="'large'"
+                nzShowSearch
+                nzAllowClear
+                nzPlaceHolder="النوع"
+                [nzDropdownStyle]="{ direction: 'rtl' }"
+              >
+                <nz-option nzLabel="TAB" nzValue="TAB"></nz-option>
+                <nz-option nzLabel="injection" nzValue="injection"></nz-option>
+                <nz-option nzLabel="patch" nzValue="patch"></nz-option>
+              </nz-select>
+              <nz-select
+                formControlName="medicine"
+                class="w-[220px]"
+                (ngModelChange)="getMedicineId($event)"
+                [nzSize]="'large'"
+                nzShowSearch
+                nzAllowClear
+                nzPlaceHolder="العلاج"
+                [nzDropdownStyle]="{ direction: 'rtl' }"
+              >
+                @for (med of medicinies; track $index) {
+                  <nz-option
+                    nzLabel="{{ med.medName }}"
+                    nzValue="{{ med.id }}"
+                  ></nz-option>
+                }
+              </nz-select>
+              <input
+                formControlName="concentration"
+                type="text"
+                class="w-[100px] rounded-lg font-normal focus:border-none focus:ring-[#00C894]"
+                placeholder="التركيز"
+              />
+              <input
+                formControlName="dose"
+                type="text"
+                class="w-[220px] rounded-lg font-normal focus:border-none focus:ring-[#00C894]"
+                placeholder="عدد مرات"
+              />
+              <input
+                formControlName="period"
+                type="text"
+                class="w-[220px] rounded-lg font-normal focus:border-none focus:ring-[#00C894]"
+                placeholder="مده العلاج"
+              />
+            </div>
+          }
+        </div>
+      </form>
+
+      <div
+        id="print-section"
+        class="!hidden"
+        style="
+          width: 420px;
+          height: 595px;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        "
+      >
+        <img
+          src="./assets/بود.jpg"
+          alt="header prescriptions"
+          style="width: 100%"
+        />
+        <div style="width: 100%; height: 60%">
+          <div style="display: flex; justify-content: space-evenly">
+            <ul style="list-style: none; direction: rtl">
+              <li
+                style="
+                  padding: 0;
+                  margin: 0;
+                  display: flex;
+                  gap: 8px;
+                  align-items: center;
+                  font-size: 16px;
+                  font-weight: 600;
+                "
+              >
+                <span style="color: #224798; font-weight: 800">التاريخ:</span>
+                <p style="border-bottom: 1px dashed black">{{ todayDate }}</p>
+              </li>
+              <li
+                style="
+                  display: flex;
+                  gap: 8px;
+                  align-items: center;
+                  font-size: 16px;
+                  font-weight: 600;
+                "
+              >
+                <label style="color: #224798; font-weight: 800">العيادة:</label>
+                <p style="border-bottom: 1px dashed black">دار السكر</p>
+              </li>
+              <li
+                style="
+                  display: flex;
+                  gap: 8px;
+                  align-items: center;
+                  font-size: 16px;
+                  font-weight: 600;
+                "
+              >
+                <label style="color: #224798; font-weight: 800">الطبيب:</label>
+                <p style="border-bottom: 1px dashed black">{{ name }}</p>
+              </li>
+            </ul>
+            <ul style="list-style: none; direction: rtl; padding: 0">
+              <li
+                style="
+                  display: flex;
+                  gap: 8px;
+                  align-items: center;
+                  font-size: 16px;
+                  font-weight: 600;
+                "
+              >
+                <label style="color: #224798; font-weight: 800">الاسم:</label>
+                <p style="border-bottom: 1px dashed black">
+                  {{ patientData?.patient?.fullName }}
+                </p>
+              </li>
+              <li
+                style="
+                  display: flex;
+                  gap: 8px;
+                  align-items: center;
+                  font-size: 16px;
+                  font-weight: 600;
+                "
+              >
+                <label style="color: #224798; font-weight: 800">السن:</label>
+                <p style="border-bottom: 1px dashed black">
+                  {{ patientData?.patient?.age }}
+                </p>
+              </li>
+              <li
+                style="
+                  display: flex;
+                  gap: 8px;
+                  align-items: center;
+                  font-size: 16px;
+                  font-weight: 600;
+                "
+              >
+                <label style="color: #224798; font-weight: 800">الوزن:</label>
+                <p style="border-bottom: 1px dashed black">
+                  {{ patientData?.medicalRecord?.weight }}
+                </p>
+              </li>
+            </ul>
+            <!-- } -->
+          </div>
+
+          <table style="width: 90%; margin: auto; margin-top: 20px">
+            <thead>
+              <tr class="text-left">
+                <th>Type</th>
+                <th>Drug Name</th>
+                <th>Concentration</th>
+                <th>Times</th>
+                <th>Period</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of prescriptions; track $index) {
+                <tr class="text-left">
+                  <td style="text-align: center">{{ item.medicine.type }}</td>
+                  <td style="text-align: center">
+                    {{ item.medicine.medName }}
+                  </td>
+                  <td style="text-align: center">{{ item.concentration }}</td>
+                  <td style="text-align: center">{{ item.dose }}</td>
+                  <td style="text-align: center">{{ item.period }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        <img
+          src="./assets/د غاده رءوف.jpg"
+          alt="footer prescriptions"
+          style="width: 100%"
+        />
+      </div>
+
+      <div class="flex justify-evenly mt-[10%] w-[90%] mx-auto">
+        <button
+          class="w-[30%] m-auto font-semibold text-2xl px-3 py-3 flex items-center justify-center bg-[#00C894] text-white rounded-lg hover:scale-[.95]"
+          (click)="addMedicine()"
+        >
+          <span
+            class="icon-[gg--add] me-[20px]"
+            style="width: 40px; height: 40px"
+          ></span>
+          إضافه علاج
+        </button>
+        <button
+          class="w-[30%] m-auto font-semibold text-2xl px-3 py-3 flex items-center justify-center bg-[#00C894] text-white rounded-lg hover:scale-[.95]"
+          (click)="print()"
+          printSectionId="print-section"
+        >
+          <span
+            printTitle="روشته"
+            previewOnly="true"
+            class="icon-[ph--printer] me-[20px]"
+            style="width: 40px; height: 40px"
+          ></span>
+          طباعه
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

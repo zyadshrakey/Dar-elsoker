@@ -1,0 +1,16 @@
+form input,
+textarea {
+  border: 1px solid #0000001a !important;
+  border-radius: 8px;
+  background-color: #f6f6f633;
+  width: 90%;
+}
+
+.info:hover ul {
+  display: block;
+}
+
+.info ul li:hover {
+  cursor: pointer;
+  scale: 1.2;
+}

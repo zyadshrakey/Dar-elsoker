@@ -1,0 +1,32 @@
+<div class="flex h-[100vh] max-md:flex-col">
+  <div
+    class="bg-[#00C894] w-1/2 max-md:w-full max-md:h-1/2 grid content-center"
+  >
+    <div class="overflow-hidden w-full">
+      <img
+        nz-image
+        [nzSrc]="src"
+        [nzPlaceholder]="placeholder"
+        nzDisablePreview
+        alt="dar-elsoker-logo"
+      />
+    </div>
+  </div>
+  <div
+    class="bg-[#F8F8F8] w-1/2 max-md:w-full max-md:h-1/2 rtl grid items-center"
+  >
+    <form class="grid content-center">
+      <p class="font-semibold text-2xl w-1/3 m-auto">
+        أهلاً بك في
+        <span class="text-[#283891] font-bold text-4xl p-4"> دار السكر</span> قم
+        بتسجيل الدخول علي النظام
+      </p>
+      <button
+        (click)="login()"
+        class="text-white bg-[#00c894] hover:scale-95 rounded-lg w-1/3 font-semibold text-xl m-auto mt-16 py-2"
+      >
+        تسجيل الدخول
+      </button>
+    </form>
+  </div>
+</div>
